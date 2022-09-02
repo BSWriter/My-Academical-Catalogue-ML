@@ -24,7 +24,7 @@ loss=tf.keras.losses.SparseCategoricalCrossentropy(\
 # Trains the model
 model.fit(train_images, train_labels, epochs=10)
  
-# Tests the accuracy of the model using the test images
+# Tests the accuracy of the model using the test images (and prints results)
 test_loss, test_acc = model.evaluate(test_images,  
                         test_labels, verbose=2)
 print('\nTest accuracy:', test_acc)
