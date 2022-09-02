@@ -1,0 +1,48 @@
+# Tensorflow import and libraries
+import tensorflow as tf
+import numpy as np
+import matplotlib.pyplot as plt
+ 
+# Load the training and testing data from the Tensorflow database (https://www.tensorflow.org/api_docs/python/tf/keras/datasets/fashion_mnist/load_data)
+fashion_mnist = tf.keras.datasets.fashion_mnist
+(train_images, train_labels), (test_images, test_labels) \
+    = fashion_mnist.load_data()
+
+# defines ML model
+model = tf.keras.Sequential([
+    tf.keras.layers.Flatten(input_shape=(28, 28)),
+    tf.keras.layers.Dense(128, activation='relu'),
+    tf.keras.layers.Dense(10)
+])
+
+# Compiles the model as Categorical (if the model compares only two categories, set to Binary)
+model.compile(optimizer='adam',
+loss=tf.keras.losses.SparseCategoricalCrossentropy(\
+                    from_logits=True),
+              metrics=['accuracy'])
+ 
+# Trains the model
+model.fit(train_images, train_labels, epochs=10)
+ 
+# Tests the accuracy of the model using the test images
+test_loss, test_acc = model.evaluate(test_images,  
+                        test_labels, verbose=2)
+print('\nTest accuracy:', test_acc)
+
+
+# Code block to visualize a test image
+# plt.figure()
+# plt.imshow(test_images[0])
+# plt.grid(False)
+# plt.show()
+
+# Code block to visualize list of training images with labels
+# plt.figure(figsize=(10,10))
+# for i in range(25):
+#     plt.subplot(5,5,i+1)
+#     plt.xticks([])
+#     plt.yticks([])
+#     plt.grid(False)
+#     plt.imshow(train_images[i], cmap=plt.cm.binary)
+#     plt.xlabel(class_names[train_labels[i]])
+# plt.show()
